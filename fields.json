@@ -1,0 +1,214 @@
+{
+  "WidgetName": {
+    "label": "SCST by @Jair4x",
+    "type": "hidden",
+    "value": "SCST by @Jair4x"
+  },
+  "Section1": {
+    "label": "Buttons",
+    "type": "hidden",
+    "value": "Buttons"
+  },
+  "resetButton": {
+    "type": "button",
+    "label": "Reset Timer"
+  },
+  "startButton": {
+    "type": "button",
+    "label": "Start/Resume Timer"
+  },
+  "pauseButton": {
+    "type": "button",
+    "label": "Pause Timer"
+  },
+  "Section2": {
+    "label": "🌐 General",
+    "type": "hidden",
+    "value": "🌐 General"
+  },
+  "startTime": {
+    "type": "number",
+    "label": "🌐 Initial time (in Seconds)",
+    "value": 0,
+    "min": 0,
+    "step": 1
+  },
+  "fontColor": {
+    "type": "colorpicker",
+    "label": "🌐 Text Color",
+    "value": "#00ffcc"
+  },
+  "fontSize": {
+    "type": "text",
+    "label": "🌐 Font Size (i.e. 4em, 50px)",
+    "value": "4em"
+  },
+  "fontFamily": {
+    "type": "googleFont",
+    "label": "🌐 Text Font",
+    "value": "Roboto"
+  },
+  "lowTimeEnabled": {
+    "type": "checkbox",
+    "label": "🌐 Change color when timer is ending",
+    "value": false
+  },
+  "lowTimeThreshold": {
+    "type": "number",
+    "label": "🌐 \"Time is ending\" threshold (in Seconds)",
+    "value": 60,
+    "min": 0,
+    "step": 1
+  },
+  "lowTimeColor": {
+    "type": "colorpicker",
+    "label": "🌐 Text color when timer is ending",
+    "value": "#ff0000"
+  },
+  "Section3": {
+    "label": "💬 Chat Messages",
+    "type": "hidden",
+    "value": "💬 Chat Messages"
+  },
+  "msgEnabled": {
+    "type": "checkbox",
+    "label": "💬 Chat Messages Module active",
+    "value": true
+  },
+  "msgIncrement": {
+    "type": "number",
+    "label": "💬 Time added per message (in seconds)",
+    "value": 2,
+    "min": 0,
+    "step": 1
+  },
+  "msgCooldown": {
+    "type": "number",
+    "label": "💬 Cooldown per user (in seconds)",
+    "value": 5,
+    "min": 0,
+    "step": 1
+  },
+  "Section4": {
+    "label": "🎁 Subscriptions",
+    "type": "hidden",
+    "value": "🎁 Subscriptions"
+  },
+  "subEnabled": {
+    "type": "checkbox",
+    "label": "🎁 Subscriptions Module active",
+    "value": true
+  },
+  "subGiftBonusEnabled": {
+    "type": "checkbox",
+    "label": "🎁 Gift subs add bonus time",
+    "value": true
+  },
+  "subTierBonusEnabled": {
+    "type": "checkbox",
+    "label": "🎁 Give bonus time depending on tier",
+    "value": true
+  },
+  "subCommunityBulkAmount": {
+    "type": "dropdown",
+    "label": "🎁 Community gifts amount format",
+    "value": "yes",
+    "options": {
+      "yes": "One big amount per bulk",
+      "no": "Individual amounts per gifted sub"
+    }
+  },
+  "subIncrement": {
+    "type": "number",
+    "label": "🎁 Time added per sub (in seconds)",
+    "value": 30,
+    "min": 0,
+    "step": 1
+  },
+  "subGiftBonusIncrement": {
+    "type": "number",
+    "label": "🎁 Gifted sub Bonus time (in seconds)",
+    "value": 10,
+    "min": 1,
+    "step": 1
+  },
+  "subTierBonusT2": {
+    "type": "number",
+    "label": "🎁 Tier 2 sub Bonus time (in seconds)",
+    "value": 20,
+    "min": 1,
+    "step": 1
+  },
+  "subTierBonusT3": {
+    "type": "number",
+    "label": "🎁 Tier 3 sub Bonus time (in seconds)",
+    "value": 30,
+    "min": 1,
+    "step": 1
+  },
+  "Section5": {
+    "label": "👤 Follows",
+    "type": "hidden",
+    "value": "👤 Follows"
+  },
+  "followEnabled": {
+    "type": "checkbox",
+    "label": "👤 Follows Module active",
+    "value": true
+  },
+  "followIncrement": {
+    "type": "number",
+    "label": "👤 Time added per follow (in seconds)",
+    "value": 10,
+    "min": 0,
+    "step": 1
+  },
+  "Section6": {
+    "label": "💎 Cheers (bits)",
+    "type": "hidden",
+    "value": "💎 Cheers (bits)"
+  },
+  "cheerEnabled": {
+    "type": "checkbox",
+    "label": "💎 Cheers (bits) Module active",
+    "value": true
+  },
+  "cheerPerSecond": {
+    "type": "number",
+    "label": "💎 Bits per second (1s = X bits)",
+    "value": 10,
+    "min": 1,
+    "step": 1
+  },
+  "cheerCustomRules": {
+    "type": "text",
+    "label": "💎 Custom Cheer Rules (JSON Array)",
+    "value": "[{\"bits\":0, \"seconds\":0}]"
+  },
+  "Section7": {
+    "label": "💸 Tips (donations)",
+    "type": "hidden",
+    "value": "💸 Tips (donations)"
+  },
+  "tipEnabled": {
+    "type": "checkbox",
+    "label": "💸 Tips (donations) Module active",
+    "value": true
+  },
+  "tipPerSecond": {
+    "type": "number",
+    "label": "💸 US$ per second (1s = X US$)",
+    "value": 0.1,
+    "min": 0.1,
+    "step": 0.1
+  },
+  "tipCustomRules": {
+    "type": "text",
+    "label": "💸 Custom Tip Rules (JSON Array)",
+    "value": "[{\"amount\":0, \"seconds\":0}]"
+  },
+  "WidgetAuthor": {
+    "value": "@Jair4x",
+    "type": "hidden"
+  }
+}
