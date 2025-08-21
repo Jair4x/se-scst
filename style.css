@@ -1,0 +1,38 @@
+body {
+  margin: 0;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  position: relative;
+}
+
+#timer {
+  font-weight: bold;
+  text-shadow: 2px 2px 8px black;
+  transition: color 0.5s;
+}
+
+.time-bonus {
+  position: absolute;
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #5d00ff;
+  pointer-events: none;
+  opacity: 1;
+  animation: moveUpFade 1s forwards;
+}
+
+@keyframes moveUpFade {
+  0% {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+}
