@@ -57,5 +57,5 @@ If you don't like it, feel free to just get rid of the addition on the code.
 ```
 
 ## WIP (Work in progress)
-- Storing time to prevent reset each time we change a setting
-- Hype trains multiplier (suggested by lexitoh on twitch)
+- Storing time to prevent reset each time we change a setting ✅
+- ~~Hype trains multiplier (suggested by lexitoh on twitch)~~ This isn't possible, sadly. StreamElements doesn't have an event for this and Twitch doesn't make it any easier, since there's "autopilot", custom configs the streamer can do and other stuff that would make the counter try to guess when does it start and finish. Great idea, but we don't have the resources for this, sadly.
