@@ -55,3 +55,7 @@ If you don't like it, feel free to just get rid of the addition on the code.
 ```json
 [{"amount":10, "seconds":480}]
 ```
+
+## WIP (Work in progress)
+- Storing time to prevent reset each time we change a setting
+- Hype trains multiplier (suggested by lexitoh on twitch)
