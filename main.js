@@ -4,13 +4,12 @@
  */
 let totalSeconds = 0;
 let initialTime = 0;
-let paused = true; // By default, the timer is stopped until we start it
+let paused = true; // By default, the timer is stopped until we start the stuff
 let config = {};
 const userLastMessage = {};
-let processedBulks = new Set();
+const STORE_KEY = "SCST_Timer";
 
 const timerElement = document.getElementById("timer");
-const coverElement = document.getElementById("cover");
 
 // Format time in HH:MM:SS
 function formatTime(sec) {
@@ -52,12 +51,35 @@ function addTime(seconds) {
     totalSeconds += seconds;
     updateDisplay();
     showTimeBonus(seconds);
+    saveTime(totalSeconds);
+}
+
+// To prevent losing time when changing a setting
+function saveTime(seconds) {
+    try {
+        SE_API.store.set(STORE_KEY, { seconds: Number(seconds) || 0 });
+    } catch (e) {
+        console.log("SE_API.store.set error:", e);
+    }
+}
+
+async function loadTime() {
+    try {
+        const obj = await SE_API.store.get(STORE_KEY);
+        if (obj && typeof obj.seconds === "number" && !Number.isNaN(obj.seconds)) {
+        return obj.seconds;
+        }
+    } catch (e) {
+        console.log("SE_API.store.get error:", e);
+    }
+    return initialTime; // fallback
 }
 
 // Lower timer
 setInterval(() => {
     if (!paused && totalSeconds > 0) {
         totalSeconds--;
+        saveTime(totalSeconds);
         updateDisplay();
     }
 }, 1000);
@@ -186,12 +208,13 @@ window.addEventListener("onEventReceived", function (obj) {
     }
 });
 
-window.addEventListener("onWidgetLoad", function (obj) {
+window.addEventListener("onWidgetLoad", async function (obj) {
     const fieldData = obj.detail.fieldData;
 
     // Get time to show
     initialTime = parseInt(fieldData.startTime, 10) || 0;
-    totalSeconds = parseInt(fieldData.startTime, 10) || 0;
+    totalSeconds = await loadTime() ? await loadTime() : initialTime;
+    saveTime(totalSeconds);
 
     // General config
     config.fontColor = fieldData.fontColor;
