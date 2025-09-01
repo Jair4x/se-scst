@@ -10,7 +10,7 @@ A simple StreamElements Subathon widget with extra functions that normal timers 
 - (NEW!) Hype Trains (Twitch event - time multiplier)
 
 ## Install/Demo
-Just enter this link and import it to your overlays: https://overlays.batary.dev/share/cmf0u5kmx0001js061c0wr0gn
+Just enter this link and import it to your overlays: https://overlays.batary.dev/share/cmf0ur90q0001jy06zou5ucit
 
 ~~Demo: https://streamable.com/7bit14 (it's in spanish, and with salsa on the background, the perfect demonstration)~~ Deprecated, will make another one soon-ish.
 
