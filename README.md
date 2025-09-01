@@ -9,9 +9,9 @@ A simple StreamElements Subathon widget with extra functions that normal timers 
 - Tips (US$)
 
 ## Install/Demo
-Just enter this link and import it to your overlays: https://overlays.batary.dev/share/cmekyyqof0003l506whm9ehip
+Just enter this link and import it to your overlays: https://overlays.batary.dev/share/cmf0u5kmx0001js061c0wr0gn
 
-Demo: https://streamable.com/7bit14 (it's in spanish, and with salsa on the background, the perfect demonstration)
+~~Demo: https://streamable.com/7bit14 (it's in spanish, and with salsa on the background, the perfect demonstration)~~ Deprecated, will make another one soon-ish.
 
 Do note that the import link has its code obfuscated, even though this repo has the non-obfuscated version.
 Also, if you plan on modifying something, feel free to fork this and pull request or open an issue. But don't remove the "watermark", at most, just edit it to add your username if you feel like you contributed enough. Don't just delete it to claim it as your own, don't be a dick.
@@ -34,7 +34,20 @@ Every value is customizable and toggleable.
 And yes, it stacks.
 
 Default: 30s base / 10s bonus for gift / Every sub at once for community gifts / 20s Tier 2 / 30s Tier 3
+### Hype Trains
+You can now link your Hype Train levels with:
+- Time Multiplier
+- Adding more multipliers to the multiplier per level (AKA for every level, increase the multiplier by X)
 
+To make this work, you need to [log in here](https://id.twitch.tv/oauth2/authorize?client_id=520y5768mtvy8yaqxl9bm8yt4ulmrj&redirect_uri=https://twitch.cafecloudnine.com/redirect&response_type=token&scope=channel:read:hype_train) (don't worry, it's a real twitch site). 
+
+Then, on the website you're gonna be redirected to, click `"Copy"` on the `token` field and press the button that says `"Save to Server"`. 
+
+If you get an alert saying `"Token saved on server successfully!"` and to `"Go back to the widget to finish configuration"`, you're good. 
+
+Paste the copied token to the `"Login (Hype train)"` section field and check the developer console. If it says `"Connected to backend via proxy."` and you see no weird error, you're done!
+
+_**If you're facing errors or don't know how to work with this, contact me on Discord or open an issue and I'll help you out.**_
 ### Cheers + Tips
 Two sections: VPS (Value Per Second) and Custom Rules.
 The latter is discussed on the next section.
@@ -58,4 +71,4 @@ If you don't like it, feel free to just get rid of the addition on the code.
 
 ## WIP (Work in progress)
 - Storing time to prevent reset each time we change a setting ✅
-- ~~Hype trains multiplier (suggested by lexitoh on twitch)~~ This isn't possible, sadly. StreamElements doesn't have an event for this and Twitch doesn't make it any easier, since there's "autopilot", custom configs the streamer can do and other stuff that would make the counter try to guess when does it start and finish. Great idea, but we don't have the resources for this, sadly.
+- Hype trains multiplier (suggested by lexitoh on twitch) ✅ (I thought this wasn't possible, but it is. I had to make an [external server](https://github.com/Jair4x/scst-server) with WebSockets to work with Twitch's events and make it work. Might need some testing and checking the code again to prevent any rare bugs.)
