@@ -47,6 +47,11 @@
     "label": "🌐 Text Color",
     "value": "#00ffcc"
   },
+  "bonusTimeColor": {
+    "type": "colorpicker",
+    "label": "🌐 Bonus time text color",
+    "value": "#5d00ff"
+  },
   "fontSize": {
     "type": "text",
     "label": "🌐 Font Size (i.e. 4em, 50px)",
