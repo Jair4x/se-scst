@@ -145,8 +145,8 @@ function initHypeTrainSub() {
         console.log("EventSub Event:", data);
 
         if (data.channelId === channelId) {
-            const eventType = data.payload.subscription.type;
-            const eventData = data.payload.event;
+            const eventType = data.eventType;
+            const eventData = data.event;
 
             handleHypeTrainEvent(eventType, eventData);
         }
