@@ -16,7 +16,7 @@ body {
   transition: color 0.5s;
 }
 
-.time-bonus {
+.time-added {
   position: absolute;
   font-size: 1.5em;
   font-weight: bold;
