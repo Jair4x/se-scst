@@ -4,7 +4,7 @@
     "type": "hidden",
     "value": "SCST by @Jair4x"
   },
-  "Section1": {
+  "buttonSection": {
     "label": "Buttons",
     "type": "hidden",
     "value": "Buttons"
@@ -21,7 +21,16 @@
     "type": "button",
     "label": "Pause Timer"
   },
-  "Section2": {
+  "loginSection": {
+    "label": "📩 Login (Hype train)",
+    "type": "hidden",
+    "value": "📩 Login (Hype train)"
+  },
+  "loginToken": {
+    "type": "text",
+    "label": "📩 Token (authorize first, not SE)"
+  },
+  "generalSection": {
     "label": "🌐 General",
     "type": "hidden",
     "value": "🌐 General"
@@ -65,7 +74,36 @@
     "label": "🌐 Text color when timer is ending",
     "value": "#ff0000"
   },
-  "Section3": {
+  "hypeTrainSection": {
+    "label": "🚂 Hype trains",
+    "type": "hidden",
+    "value": "🚂 Hype trains"
+  },
+  "hypeTrainEnabled": {
+    "type": "checkbox",
+    "label": "🚂 Hype train Module active",
+    "value": true
+  },
+  "hypeTrainMultiplierBonusEnabled": {
+    "type": "checkbox",
+    "label": "🚂 Hype train levels add more multipliers",
+    "value": true
+  },
+  "hypeTrainBaseMultiplier": {
+    "type": "number",
+    "label": "🚂 H.T. seconds multiplier (Xs * Y)",
+    "value": 1.75,
+    "min": 0,
+    "step": 0.25
+  },
+  "hypeTrainBonusMultiplier": {
+    "type": "number",
+    "label": "🚂 H.T. lvl multiplier bonus (Xs * (Y + Z))",
+    "value": 0.25,
+    "min": 0,
+    "step": 0.5
+  },
+  "chatSection": {
     "label": "💬 Chat Messages",
     "type": "hidden",
     "value": "💬 Chat Messages"
@@ -89,7 +127,7 @@
     "min": 0,
     "step": 1
   },
-  "Section4": {
+  "Section5": {
     "label": "🎁 Subscriptions",
     "type": "hidden",
     "value": "🎁 Subscriptions"
@@ -146,7 +184,7 @@
     "min": 1,
     "step": 1
   },
-  "Section5": {
+  "Section6": {
     "label": "👤 Follows",
     "type": "hidden",
     "value": "👤 Follows"
@@ -163,7 +201,7 @@
     "min": 0,
     "step": 1
   },
-  "Section6": {
+  "Section7": {
     "label": "💎 Cheers (bits)",
     "type": "hidden",
     "value": "💎 Cheers (bits)"
@@ -185,7 +223,7 @@
     "label": "💎 Custom Cheer Rules (JSON Array)",
     "value": "[{\"bits\":0, \"seconds\":0}]"
   },
-  "Section7": {
+  "Section8": {
     "label": "💸 Tips (donations)",
     "type": "hidden",
     "value": "💸 Tips (donations)"
