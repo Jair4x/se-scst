@@ -5,11 +5,28 @@
 let totalSeconds = 0;
 let initialTime = 0;
 let paused = true; // By default, the timer is stopped until we start the stuff
+let hypeTrainActive = false;
+let hypeTrainCurrentMultiplier = 1;
+let hypeTrainCurrentLevel = 0;
 let config = {};
 const userLastMessage = {};
 const STORE_KEY = "SCST_Timer";
+let userToken;
+
+const clientId = "520y5768mtvy8yaqxl9bm8yt4ulmrj";
+const redirectURI = "https://twitch.cafecloudnine.com/redirect";
+let authLink = `https://id.twitch.tv/oauth2/authorize?client_id=${clientId}&redirect_uri=${redirectURI}&response_type=token&scope=channel:read:hype_train`;
 
 const timerElement = document.getElementById("timer");
+
+// Lower timer
+setInterval(() => {
+    if (!paused && totalSeconds > 0) {
+        totalSeconds--;
+        saveTime(totalSeconds);
+        updateDisplay();
+    }
+}, 1000);
 
 // Format time in HH:MM:SS
 function formatTime(sec) {
@@ -19,9 +36,10 @@ function formatTime(sec) {
     return `${h}:${m}:${s}`;
 }
 
-function showTimeBonus(seconds) {
+// lil' animation when time is added
+function timeAddedAnim(seconds) {
     const bonus = document.createElement("span");
-    bonus.className = "time-bonus";
+    bonus.className = "time-added";
     bonus.textContent = `+${seconds}s`;
 
     // Position animation on timer
@@ -36,6 +54,8 @@ function showTimeBonus(seconds) {
         bonus.remove();
     });
 }
+
+// Update timer text, duh
 function updateDisplay() {
     timerElement.textContent = formatTime(totalSeconds);
 
@@ -47,42 +67,116 @@ function updateDisplay() {
     }
 }
 
-function addTime(seconds) {
-    totalSeconds += seconds;
-    updateDisplay();
-    showTimeBonus(seconds);
-    saveTime(totalSeconds);
-}
-
-// To prevent losing time when changing a setting
+// Save time to prevent resetting stuff when changing a setting
 function saveTime(seconds) {
     try {
         SE_API.store.set(STORE_KEY, { seconds: Number(seconds) || 0 });
     } catch (e) {
-        console.log("SE_API.store.set error:", e);
+        console.log("Error occurred when trying to save time:", e);
     }
 }
 
+// Load time, duh 
 async function loadTime() {
     try {
         const obj = await SE_API.store.get(STORE_KEY);
+
         if (obj && typeof obj.seconds === "number" && !Number.isNaN(obj.seconds)) {
-        return obj.seconds;
+            return obj.seconds;
         }
     } catch (e) {
-        console.log("SE_API.store.get error:", e);
+        console.log("Error occurred when trying to get time:", e);
     }
     return initialTime; // fallback
 }
 
-// Lower timer
-setInterval(() => {
-    if (!paused && totalSeconds > 0) {
-        totalSeconds--;
-        saveTime(totalSeconds);
-        updateDisplay();
+// Add time, save it and show animation
+function addTime(seconds) {
+    if(hypeTrainActive && hypeTrainEnabled) seconds *= hypeTrainCurrentMultiplier;
+    totalSeconds += seconds;
+    updateDisplay();
+    timeAddedAnim(seconds);
+    saveTime(totalSeconds);
+}
+
+// Load twitch token for hype train
+async function loadTokenData() {
+    try {
+        const obj = await SE_API.store.get(STORE_KEY + "_token");
+
+        if(obj && obj.loginToken) {
+            twitchToken = obj.loginToken;
+            channelId = await getChannelId(twitchToken);
+            initHypeTrainSub();
+        } else {
+            console.error("Tried to get login token, but it was either invalid or expired.");
+        }
+    } catch (e) {
+        console.log("Error occurred when trying to get twitch token:", e);
     }
-}, 1000);
+}
+
+// Get channel ID for Hype train event subscription
+async function getChannelId(token) {
+    const res = await fetch("https://api.twitch.tv/helix/users", {
+        headers: {
+            "Authorization": `Bearer ${token}`,
+            "Client-Id": clientId
+        }
+    });
+    const response = await res.json();
+    if(response.data && response.data.length > 0) {
+        return response.data[0].id; // ChannelId
+    }
+    return null;
+}
+
+// Subscribe to hype train events
+function initHypeTrainSub() {
+    if(!twitchToken || !channelId) return console.error("Tried to initialize hype train sub but at least one value wasn't defined.");
+
+    const ws = new WebSocket("wss://twitch.cafecloudnine.com");
+
+    ws.onopen = () => {
+        console.log("Connected to backend via proxy.");
+    };
+
+    ws.onmessage = (msg) => {
+        const data = JSON.parse(msg.data);
+        console.log("EventSub Event:", data);
+
+        if (data.channelId === channelId) {
+            const eventType = data.payload.subscription.type;
+            const eventData = data.payload.event;
+
+            handleHypeTrainEvent(eventType, eventData);
+        }
+    };
+}
+
+// HypeTrain event handling
+function handleHypeTrainEvent(type, event) {
+    switch(type) {
+        case "channel.hype_train.begin":
+            hypeTrainActive = true;
+            hypeTrainCurrentMultiplier = config.hypeTrainBaseMultiplier;
+            console.log("Hype train started!");
+            break;
+        case "channel.hype_train.progress":
+            if(event.level > hypeTrainCurrentLevel) {
+                hypeTrainCurrentLevel = event.level;
+                hypeTrainCurrentMultiplier += config.hypeTrainBonusMultiplier;
+                console.log(`HT level: ${event.level}, multiplier: ${hypeTrainCurrentMultiplier}`);
+            }
+            break;
+        case "channel.hype_train.end":
+            hypeTrainActive = false;
+            hypeTrainCurrentMultiplier = config.hypeTrainBaseMultiplier;
+            hypeTrainCurrentLevel = 0;
+            console.log("Hype train finished.");
+            break;
+    }
+}
 
 // StreamElements events
 window.addEventListener("onEventReceived", function (obj) {
@@ -94,6 +188,7 @@ window.addEventListener("onEventReceived", function (obj) {
         if (data.field === 'resetButton') {
             const startTime = parseInt(initialTime, 10) || 0;
             totalSeconds = startTime;
+            saveTime(totalSeconds);
             updateDisplay();
         }
 
@@ -208,6 +303,7 @@ window.addEventListener("onEventReceived", function (obj) {
     }
 });
 
+// Load config from fields
 window.addEventListener("onWidgetLoad", async function (obj) {
     const fieldData = obj.detail.fieldData;
 
@@ -223,6 +319,17 @@ window.addEventListener("onWidgetLoad", async function (obj) {
     config.lowTimeEnabled = fieldData.lowTimeEnabled;
     config.lowTimeThreshold = parseInt(fieldData.lowTimeThreshold, 10) || 60;
     config.lowTimeColor = fieldData.lowTimeColor;
+
+    // Hype trains config
+    config.hypeTrainEnabled = fieldData.hypeTrainEnabled;
+    config.hypeTrainBaseMultiplierBonusEnabled = fieldData.hypeTrainBaseMultiplierBonusEnabled;
+    config.hypeTrainBaseMultiplier = parseFloat(fieldData.hypeTrainBaseMultiplier) || 1;
+    config.hypeTrainBonusMultiplier = parseFloat(fieldData.hypeTrainBonusMultiplier) || 0;
+    userToken = fieldData.loginToken || "none";
+    if (userToken !== "none") {
+        SE_API.store.set(STORE_KEY + "_token", { "loginToken": userToken });
+        loadTokenData();
+    }
 
     // Message config
     config.msgEnabled = fieldData.msgEnabled;
