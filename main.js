@@ -14,8 +14,6 @@ const STORE_KEY = "SCST_Timer";
 let userToken;
 
 const clientId = "520y5768mtvy8yaqxl9bm8yt4ulmrj";
-const redirectURI = "https://twitch.cafecloudnine.com/redirect";
-let authLink = `https://id.twitch.tv/oauth2/authorize?client_id=${clientId}&redirect_uri=${redirectURI}&response_type=token&scope=channel:read:hype_train`;
 
 const timerElement = document.getElementById("timer");
 
@@ -40,6 +38,7 @@ function formatTime(sec) {
 function timeAddedAnim(seconds) {
     const bonus = document.createElement("span");
     bonus.className = "time-added";
+    bonus.style.color = config.bonusTimeColor || "#5d00ff";
     bonus.textContent = `+${seconds}s`;
 
     // Position animation on timer
@@ -314,6 +313,7 @@ window.addEventListener("onWidgetLoad", async function (obj) {
 
     // General config
     config.fontColor = fieldData.fontColor;
+    config.bonusTimeColor = fieldData.bonusTimeColor;
     config.fontSize = fieldData.fontSize;
     config.fontFamily = fieldData.fontFamily;
     config.lowTimeEnabled = fieldData.lowTimeEnabled;
