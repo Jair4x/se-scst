@@ -7,6 +7,7 @@ A simple StreamElements Subathon widget with extra functions that normal timers 
 - Subs (normal, gifted, community gifts, all with bonus time if you want)
 - Cheers (bits)
 - Tips (US$)
+- (NEW!) Hype Trains (Twitch event - time multiplier)
 
 ## Install/Demo
 Just enter this link and import it to your overlays: https://overlays.batary.dev/share/cmf0u5kmx0001js061c0wr0gn
