@@ -12,7 +12,7 @@ A simple StreamElements Subathon widget with extra functions that normal timers 
 ## Install/Demo
 Just enter this link and import it to your overlays: https://overlays.batary.dev/share/cmf1dgznx0001jv06ga4ogxft (Updated September 1st, 2025)
 
-~~Demo: https://streamable.com/7bit14 (it's in spanish, and with salsa on the background, the perfect demonstration)~~ Deprecated, will make another one soon-ish.
+Demo + Hype Train tutorial: https://streamable.com/7bit14 (no music, no anything, plain browser and full tutorial)
 
 Do note that the import link has its code obfuscated, even though this repo has the non-obfuscated version.
 Also, if you plan on modifying something, feel free to fork this and pull request or open an issue. But don't remove the "watermark", at most, just edit it to add your username if you feel like you contributed enough. Don't just delete it to claim it as your own, don't be a dick.
